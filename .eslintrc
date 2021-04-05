@@ -1,0 +1,13 @@
+{
+  "parser": "@babel/eslint-parser",
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "semi": ["warn", "never"],
+    "require-jsdoc": "off"
+  },
+  "extends": ["eslint:recommended", "google"]
+}
