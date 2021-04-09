@@ -7,12 +7,15 @@ const ESLintPlugin = require('eslint-webpack-plugin')
 const isProd = process.env.NODE_ENV === 'production'
 const isDev = !isProd
 
+const filename = (ext) =>
+  isDev ? `bundle.${ext}` : `bundle.[fullhash].${ext}`
+
 module.exports = {
   context: path.resolve(__dirname, 'src'),
   mode: 'development',
   entry: ['@babel/polyfill', './index.js'],
   output: {
-    filename: 'bundle.[fullhash].js',
+    filename: filename('js'),
     path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
@@ -33,6 +36,7 @@ module.exports = {
     new ESLintPlugin(),
     new HTMLWebpackPlugin({
       template: 'index.html',
+      filename: 'index.html',
       minify: {
         removeComments: isProd,
         collapseWhitespace: isProd,
@@ -47,7 +51,7 @@ module.exports = {
       ],
     }),
     new MiniCssExtractPlugin({
-      filename: 'bundle.[fullhash].css',
+      filename: filename('css'),
     }),
   ],
   target: 'web',
