@@ -29,8 +29,8 @@ module.exports = {
   devtool: isDev ? 'source-map' : false,
   devServer: {
     port: 8080,
-    hot: isDev,
-    watchContentBase: true,
+    hot: false,
+    watchFiles: 'src/index.html',
   },
   plugins: [
     new ESLintPlugin(),
