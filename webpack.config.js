@@ -29,7 +29,7 @@ module.exports = {
   devtool: isDev ? 'source-map' : false,
   devServer: {
     port: 8080,
-    hot: false,
+    hot: isDev,
     watchFiles: 'src/index.html',
   },
   plugins: [
