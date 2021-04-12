@@ -32,6 +32,9 @@ module.exports = {
     hot: isDev,
     watchFiles: 'src/index.html',
   },
+  optimization: {
+    emitOnErrors: false,
+  },
   plugins: [
     new ESLintPlugin(),
     new HTMLWebpackPlugin({
