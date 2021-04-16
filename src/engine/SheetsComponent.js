@@ -16,6 +16,9 @@ export class SheetsComponent extends DOMEventListener {
 
   init() {
     this.initDOMEventListeners()
+  }
+
+  destroy() {
     this.removeDOMEventListeners()
   }
 }

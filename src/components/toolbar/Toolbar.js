@@ -3,6 +3,17 @@ import {SheetsComponent} from '@engine/SheetsComponent'
 export class Toolbar extends SheetsComponent {
   static className = 'c-sheets-toolbar';
 
+  constructor($root) {
+    super($root, {
+      name: 'Toolbar',
+      listeners: ['click'],
+    })
+  }
+
+  onClick(event) {
+    console.log(event.target)
+  }
+
   toHTML() {
     return `
     <div class="c-sheets-toolbar__button">
