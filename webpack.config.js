@@ -23,7 +23,7 @@ module.exports = {
     extensions: ['.js'],
     alias: {
       '@': path.resolve(__dirname, 'src'),
-      '@core': path.resolve(__dirname, 'src/core'),
+      '@engine': path.resolve(__dirname, 'src/engine'),
     },
   },
   devtool: isDev ? 'source-map' : false,
@@ -69,9 +69,6 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-          },
         },
       },
     ],
