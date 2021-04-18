@@ -1,4 +1,4 @@
-import {capitalize} from './utils'
+import { capitalize } from './utils'
 
 export class DOMEventListener {
   constructor($root, listeners = []) {
@@ -15,7 +15,7 @@ export class DOMEventListener {
       if (!this[method]) {
         const name = this.name || ''
         throw new Error(
-            `Method ${method} is not implemented in ${name} component`
+          `Method ${method} is not implemented in ${name} component`
         )
       }
       // reassign method

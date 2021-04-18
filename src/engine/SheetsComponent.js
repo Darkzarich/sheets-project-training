@@ -1,4 +1,4 @@
-import {DOMEventListener} from '@engine/DOMEventListener'
+import { DOMEventListener } from '@engine/DOMEventListener'
 
 export class SheetsComponent extends DOMEventListener {
   constructor($root, options = {}) {

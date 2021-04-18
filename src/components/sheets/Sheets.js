@@ -1,4 +1,4 @@
-import { $ } from "@engine/EngineDOM"
+import { $ } from '@engine/EngineDOM'
 
 export class Sheets {
   constructor(selector, options) {
@@ -7,10 +7,10 @@ export class Sheets {
   }
 
   getRoot() {
-    const $root = $.create("div", "l-sheets")
+    const $root = $.create('div', 'l-sheets')
 
     this.components = this.components.map((Component) => {
-      const $el = $.create("div", Component.className)
+      const $el = $.create('div', Component.className)
       const component = new Component($el)
       $el.html(component.toHTML())
       $root.append($el)
