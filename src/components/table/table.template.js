@@ -19,7 +19,9 @@ const toColumn = (letter) => {
 }
 
 const createRow = (content, rowNumber) => {
-  const resizer = content ? '<div class="c-sheets-table__row-resize"></div>' : ''
+  const resizer = content
+    ? '<div class="c-sheets-table__row-resize"></div>'
+    : ''
 
   return `
     <div class="c-sheets-table__row">
@@ -40,16 +42,9 @@ export const createTable = (rowCount = 27) => {
   const colCount = CODES.Z - CODES.A + 1
   const rows = []
 
-  const cols = new Array(colCount)
-      .fill('')
-      .map(toChar)
-      .map(toColumn)
-      .join('')
+  const cols = new Array(colCount).fill('').map(toChar).map(toColumn).join('')
 
-  const cells = new Array(colCount)
-      .fill('')
-      .map(toCell)
-      .join('')
+  const cells = new Array(colCount).fill('').map(toCell).join('')
 
   rows.push(createRow(cols, ''))
 

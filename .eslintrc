@@ -5,7 +5,7 @@
     "browser": true,
     "node": true
   },
-  "extends": ["eslint:recommended", "google"],
+  "extends": ["eslint:recommended", "google", "prettier"],
   "rules": {
     "semi": ["warn", "never"],
     "require-jsdoc": "off",

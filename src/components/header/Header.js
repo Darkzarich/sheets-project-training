@@ -1,4 +1,4 @@
-import {SheetsComponent} from '@engine/SheetsComponent'
+import { SheetsComponent } from '@engine/SheetsComponent'
 
 export class Header extends SheetsComponent {
   static className = 'c-sheets-header'
