@@ -11,14 +11,22 @@ const toCell = (content) => {
 
 const toColumn = (letter) => {
   return `
-    <div class="c-sheets-table__col">${letter}</div>
+    <div class="c-sheets-table__col">
+      ${letter}
+      <div class="c-sheets-table__col-resize"></div>
+    </div>
 `
 }
 
 const createRow = (content, rowNumber) => {
+  const resizer = content ? '<div class="c-sheets-table__row-resize"></div>' : ''
+
   return `
     <div class="c-sheets-table__row">
-      <div class="c-sheets-table__row-info">${rowNumber}</div>
+      <div class="c-sheets-table__row-info">
+        ${rowNumber}
+        ${resizer}
+      </div>
       <div class="c-sheets-table__row-data">${content}</div>
     </div>
   `

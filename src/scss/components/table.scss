@@ -25,6 +25,16 @@
     border: 1px solid $border-color;
     border-top: none;
     background: #f8f9fa;
+    position: relative;
+  }
+
+  &__row-resize {
+    height: 4px;
+    width: 100%;
+
+    &:hover {
+      cursor: row-resize;
+    }  
   }
 
   &__col {
@@ -38,6 +48,28 @@
     border-top: none;
     border-left: none;
     height: 100%;
+    position: relative;
+  }
+
+  &__col-resize {
+    right: 0;
+    height: 100%;
+    width: 4px;
+
+    &:hover {
+      cursor: col-resize;
+    }
+  }
+
+  &__col-resize, &__row-resize {
+    position: absolute;
+    bottom: 0;
+    opacity: 0;
+    background: $primary-color;
+
+    &:hover {
+      opacity: 1;
+    } 
   }
 
   &__row-data {
@@ -58,7 +90,7 @@
 
     &--selected {
       border: none;
-      outline: 2px solid #3c74ff;
+      outline: 2px solid $primary-color;
       z-index: 2;
     }
   }
