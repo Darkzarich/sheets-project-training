@@ -3,17 +3,15 @@ const CODES = {
   Z: 90,
 }
 
-const toCell = (content) => {
+const toCell = (content, index) => {
   return `
-    <div class="c-sheets-table__cell" contenteditable data-cell-resizable>${content}</div>
+    <div class="c-sheets-table__cell" contenteditable data-col-index="${index}">${content}</div>
 `
 }
 
 const toColumn = (letter, index) => {
   return `
-    <div class="c-sheets-table__col" data-resizable data-row-index="${
-      index + 1
-    }">
+    <div class="c-sheets-table__col" data-resizable data-col-index="${index}">
       ${letter}
       <div class="c-sheets-table__col-resize" data-resize="col"></div>
     </div>

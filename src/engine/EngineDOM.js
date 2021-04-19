@@ -12,6 +12,10 @@ class EngineDOM {
     return this.$el.outerHTML.trim()
   }
 
+  get data() {
+    return this.$el.dataset
+  }
+
   on(eventType, callback) {
     this.$el.addEventListener(eventType, callback)
   }
@@ -45,6 +49,10 @@ class EngineDOM {
     }
 
     return this
+  }
+
+  findAll(selector) {
+    return this.$el.querySelectorAll(selector)
   }
 }
 

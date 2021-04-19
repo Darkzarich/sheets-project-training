@@ -27,6 +27,14 @@ export class Table extends SheetsComponent {
       const resizeType = $resizer.$el.dataset.resize
       const parentPos = $parent.getPos()
 
+      const cells = this.$root.findAll(
+        `[data-col-index="${$parent.data.colIndex}"`
+      )
+
+      $resizer.$el.style.height = `${window.screen.height}px`
+      $resizer.$el.style.top = 0
+      $resizer.$el.style.opacity = 1
+
       document.onmousemove = (e) => {
         if (e.button === MOUSE_BUTTONS.LEFT) {
           if (resizeType === 'col') {
@@ -34,13 +42,9 @@ export class Table extends SheetsComponent {
             const value = `${parentPos.width + offset}px`
             $parent.$el.style.width = value
 
-            document
-              .querySelectorAll(
-                `[data-cell-resizable]:nth-child(${$parent.$el.dataset.rowIndex})`
-              )
-              .forEach((el) => {
-                el.style.width = value
-              })
+            cells.forEach((el) => {
+              el.style.width = value
+            })
           } else {
             const offset = e.pageY - parentPos.bottom
             const value = `${parentPos.height + offset}px`
@@ -53,6 +57,10 @@ export class Table extends SheetsComponent {
         if (e.button === MOUSE_BUTTONS.LEFT) {
           document.onmousemove = null
           document.onmouseup = null
+
+          $resizer.$el.style.height = ''
+          $resizer.$el.style.top = ''
+          $resizer.$el.style.opacity = ''
         }
       }
     }
