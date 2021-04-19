@@ -27,28 +27,32 @@ export class Table extends SheetsComponent {
       const resizeType = $resizer.$el.dataset.resize
       const parentPos = $parent.getPos()
 
-      const cells = this.$root.findAll(
-        `[data-col-index="${$parent.data.colIndex}"`
-      )
-
-      $resizer.$el.style.height = `${window.screen.height}px`
-      $resizer.$el.style.top = 0
-      $resizer.$el.style.opacity = 1
+      if (resizeType === 'col') {
+        $resizer.css({
+          bottom: -window.screen.height + 'px',
+          height: '2000px',
+          opacity: 1,
+        })
+      } else {
+        $resizer.css({
+          right: -window.screen.width + 'px',
+          width: '2000px',
+          opacity: 1,
+        })
+      }
 
       document.onmousemove = (e) => {
         if (e.button === MOUSE_BUTTONS.LEFT) {
           if (resizeType === 'col') {
             const offset = e.pageX - parentPos.right
-            const value = `${parentPos.width + offset}px`
-            $parent.$el.style.width = value
-
-            cells.forEach((el) => {
-              el.style.width = value
+            $resizer.css({
+              right: -offset + 'px',
             })
           } else {
             const offset = e.pageY - parentPos.bottom
-            const value = `${parentPos.height + offset}px`
-            $parent.$el.style.height = value
+            $resizer.css({
+              bottom: -offset + 'px',
+            })
           }
         }
       }
@@ -58,9 +62,28 @@ export class Table extends SheetsComponent {
           document.onmousemove = null
           document.onmouseup = null
 
-          $resizer.$el.style.height = ''
-          $resizer.$el.style.top = ''
-          $resizer.$el.style.opacity = ''
+          if (resizeType === 'col') {
+            const offset = e.pageX - parentPos.right
+            const value = parentPos.width + offset + 'px'
+            this.$root
+              .findAll(`[data-col-index="${$parent.data.colIndex}"`)
+              .forEach((el) => {
+                el.style.width = value
+              })
+          } else {
+            const offset = e.pageY - parentPos.bottom
+            const value = parentPos.height + offset + 'px'
+            $parent.css({
+              height: value,
+            })
+          }
+
+          $resizer.css({
+            height: null,
+            bottom: null,
+            right: null,
+            opacity: null,
+          })
         }
       }
     }

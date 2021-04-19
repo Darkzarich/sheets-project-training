@@ -7,6 +7,7 @@
   right: 0;
   top: $header-height + $toolbar-height + $formula-height;
   overflow-x: auto;
+  overflow-y: hidden;
   padding-bottom: 2px;
 
   &__row {
@@ -52,7 +53,6 @@
   }
 
   &__col-resize {
-    right: 0;
     height: 100%;
     width: 4px;
 
@@ -65,9 +65,11 @@
   &__row-resize {
     position: absolute;
     bottom: 0;
+    right: 0;
     opacity: 0;
     background: $primary-color;
     user-select: none;
+    z-index: 10;
 
     &:hover {
       opacity: 1;

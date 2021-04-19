@@ -16,6 +16,20 @@ class EngineDOM {
     return this.$el.dataset
   }
 
+  css(styles = {}) {
+    if (typeof styles === 'object') {
+      for (const key in styles) {
+        if (key in styles) {
+          this.$el.style[key] = styles[key]
+        }
+      }
+
+      return this
+    }
+
+    return this.$el.style
+  }
+
   on(eventType, callback) {
     this.$el.addEventListener(eventType, callback)
   }
