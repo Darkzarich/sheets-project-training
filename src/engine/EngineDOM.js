@@ -20,6 +20,14 @@ class EngineDOM {
     this.$el.removeEventListener(eventType, callback)
   }
 
+  closest(selector) {
+    return $(this.$el.closest(selector))
+  }
+
+  getPos() {
+    return this.$el.getBoundingClientRect()
+  }
+
   clear() {
     this.html('')
     return this

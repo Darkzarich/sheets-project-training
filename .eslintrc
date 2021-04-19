@@ -9,7 +9,6 @@
   "rules": {
     "semi": ["warn", "never"],
     "require-jsdoc": "off",
-    "operator-linebreak": ["warn", "before"],
     "no-else-return": ["warn"]
   }
 }

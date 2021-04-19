@@ -67,6 +67,7 @@
     bottom: 0;
     opacity: 0;
     background: $primary-color;
+    user-select: none;
 
     &:hover {
       opacity: 1;
