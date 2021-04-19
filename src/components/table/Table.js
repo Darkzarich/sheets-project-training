@@ -1,11 +1,7 @@
-import { $ } from '@engine/EngineDOM'
 import { SheetsComponent } from '@engine/SheetsComponent.js'
 import { createTable } from './table.template'
-
-const MOUSE_BUTTONS = {
-  LEFT: 0,
-  RIGHT: 2,
-}
+import { handleTableResize } from './table.resize'
+import { shouldResize } from './table.functions'
 export class Table extends SheetsComponent {
   static className = 'c-sheets-table'
 
@@ -21,71 +17,8 @@ export class Table extends SheetsComponent {
   }
 
   onMousedown(event) {
-    if (event.target.dataset.resize && event.button === MOUSE_BUTTONS.LEFT) {
-      const $resizer = $(event.target)
-      const $parent = $resizer.closest('[data-resizable]')
-      const resizeType = $resizer.$el.dataset.resize
-      const parentPos = $parent.getPos()
-
-      if (resizeType === 'col') {
-        $resizer.css({
-          bottom: -window.screen.height + 'px',
-          height: '2000px',
-          opacity: 1,
-        })
-      } else {
-        $resizer.css({
-          right: -window.screen.width + 'px',
-          width: '2000px',
-          opacity: 1,
-        })
-      }
-
-      document.onmousemove = (e) => {
-        if (e.button === MOUSE_BUTTONS.LEFT) {
-          if (resizeType === 'col') {
-            const offset = e.pageX - parentPos.right
-            $resizer.css({
-              right: -offset + 'px',
-            })
-          } else {
-            const offset = e.pageY - parentPos.bottom
-            $resizer.css({
-              bottom: -offset + 'px',
-            })
-          }
-        }
-      }
-
-      document.onmouseup = (e) => {
-        if (e.button === MOUSE_BUTTONS.LEFT) {
-          document.onmousemove = null
-          document.onmouseup = null
-
-          if (resizeType === 'col') {
-            const offset = e.pageX - parentPos.right
-            const value = parentPos.width + offset + 'px'
-            this.$root
-              .findAll(`[data-col-index="${$parent.data.colIndex}"`)
-              .forEach((el) => {
-                el.style.width = value
-              })
-          } else {
-            const offset = e.pageY - parentPos.bottom
-            const value = parentPos.height + offset + 'px'
-            $parent.css({
-              height: value,
-            })
-          }
-
-          $resizer.css({
-            height: null,
-            bottom: null,
-            right: null,
-            opacity: null,
-          })
-        }
-      }
+    if (shouldResize(event)) {
+      handleTableResize(event, this.$root)
     }
   }
 }
