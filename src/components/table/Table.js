@@ -31,10 +31,20 @@ export class Table extends SheetsComponent {
         if (e.button === MOUSE_BUTTONS.LEFT) {
           if (resizeType === 'col') {
             const offset = e.pageX - parentPos.right
-            $parent.$el.style.width = `${parentPos.width + offset}px`
+            const value = `${parentPos.width + offset}px`
+            $parent.$el.style.width = value
+
+            document
+              .querySelectorAll(
+                `[data-cell-resizable]:nth-child(${$parent.$el.dataset.rowIndex})`
+              )
+              .forEach((el) => {
+                el.style.width = value
+              })
           } else {
             const offset = e.pageY - parentPos.bottom
-            $parent.$el.style.height = `${parentPos.height + offset}px`
+            const value = `${parentPos.height + offset}px`
+            $parent.$el.style.height = value
           }
         }
       }

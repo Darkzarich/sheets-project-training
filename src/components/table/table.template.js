@@ -5,13 +5,15 @@ const CODES = {
 
 const toCell = (content) => {
   return `
-    <div class="c-sheets-table__cell" contenteditable>${content}</div>
+    <div class="c-sheets-table__cell" contenteditable data-cell-resizable>${content}</div>
 `
 }
 
-const toColumn = (letter) => {
+const toColumn = (letter, index) => {
   return `
-    <div class="c-sheets-table__col" data-resizable>
+    <div class="c-sheets-table__col" data-resizable data-row-index="${
+      index + 1
+    }">
       ${letter}
       <div class="c-sheets-table__col-resize" data-resize="col"></div>
     </div>
@@ -19,7 +21,7 @@ const toColumn = (letter) => {
 }
 
 const createRow = (content, rowNumber) => {
-  const resizer = content
+  const resizer = rowNumber
     ? '<div class="c-sheets-table__row-resize" data-resize="row"></div>'
     : ''
 
