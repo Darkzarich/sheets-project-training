@@ -7,8 +7,7 @@ const ESLintPlugin = require('eslint-webpack-plugin')
 const isProd = process.env.NODE_ENV === 'production'
 const isDev = !isProd
 
-const filename = (ext) =>
-  isDev ? `bundle.${ext}` : `bundle.[fullhash].${ext}`
+const filename = (ext) => (isDev ? `bundle.${ext}` : `bundle.[fullhash].${ext}`)
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),

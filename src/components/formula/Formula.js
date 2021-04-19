@@ -1,4 +1,4 @@
-import {SheetsComponent} from '@engine/SheetsComponent'
+import { SheetsComponent } from '@engine/SheetsComponent'
 
 export class Formula extends SheetsComponent {
   static className = 'c-sheets-formula'

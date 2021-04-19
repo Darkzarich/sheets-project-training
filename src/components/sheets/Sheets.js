@@ -1,4 +1,4 @@
-import {$} from '@engine/EngineDOM'
+import { $ } from '@engine/EngineDOM'
 
 export class Sheets {
   constructor(selector, options) {

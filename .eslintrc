@@ -5,11 +5,10 @@
     "browser": true,
     "node": true
   },
-  "extends": ["eslint:recommended", "google"],
+  "extends": ["eslint:recommended", "google", "plugin:prettier/recommended"],
   "rules": {
     "semi": ["warn", "never"],
     "require-jsdoc": "off",
-    "operator-linebreak": ["warn", "before"],
     "no-else-return": ["warn"]
   }
 }
