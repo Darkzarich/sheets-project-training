@@ -14,3 +14,7 @@ export const shouldResize = (event) => {
 export const isSelectable = (event) => {
   return Boolean(event.target.dataset.id)
 }
+
+export const isSelectingGroup = (event) => {
+  return event.shiftKey
+}

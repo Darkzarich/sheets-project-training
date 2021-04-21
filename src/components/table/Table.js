@@ -2,7 +2,7 @@ import { SheetsComponent } from '@engine/SheetsComponent.js'
 import { $ } from '@engine/EngineDOM.js'
 import { createTable } from './table.template'
 import { handleTableResize } from './table.resize'
-import { isSelectable, shouldResize } from './table.functions'
+import { isSelectable, shouldResize, isSelectingGroup } from './table.functions'
 import TableSelection from './TableSelection'
 export class Table extends SheetsComponent {
   static className = 'c-sheets-table'
@@ -37,7 +37,12 @@ export class Table extends SheetsComponent {
 
     if (isSelectable(event)) {
       const target = $(event.target)
-      this.selection.select(target)
+
+      if (isSelectingGroup(event)) {
+        this.selection.selectGroup(target, this.$root)
+      } else {
+        this.selection.select(target)
+      }
     }
   }
 }
