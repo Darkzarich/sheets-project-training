@@ -10,3 +10,7 @@ export const isLeftMouseButton = (event) => {
 export const shouldResize = (event) => {
   return Boolean(event.target.dataset.resize) && isLeftMouseButton(event)
 }
+
+export const isSelectable = (event) => {
+  return Boolean(event.target.dataset.id)
+}

@@ -4,6 +4,8 @@ export class SheetsComponent extends DOMEventListener {
   constructor($root, options = {}) {
     super($root, options.listeners)
     this.name = options.name || 'Anonymous'
+
+    this.prepare()
   }
 
   /**
@@ -13,6 +15,8 @@ export class SheetsComponent extends DOMEventListener {
   toHTML() {
     return ''
   }
+
+  prepare() {}
 
   init() {
     this.initDOMEventListeners()
