@@ -30,17 +30,24 @@ export const isControlKey = (event) => {
   ].includes(event.key)
 }
 
-export const getSelectDirection = (event) => {
+export const getNextCellCord = (event, { row, col }) => {
+  const MIN_VALUE = 1
   switch (event.key) {
     case 'Tab':
     case 'ArrowRight':
-      return [0, 1]
+      col++
+      break
     case 'ArrowLeft':
-      return [0, -1]
+      col--
+      break
     case 'ArrowUp':
-      return [-1, 0]
+      row--
+      break
     case 'Enter':
     case 'ArrowDown':
-      return [1, 0]
+      row++
+      break
   }
+
+  return { row: Math.max(MIN_VALUE, row), col: Math.max(MIN_VALUE, col) }
 }

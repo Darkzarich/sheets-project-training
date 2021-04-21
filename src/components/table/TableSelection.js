@@ -12,7 +12,7 @@ export default class TableSelection {
     this.discardAll()
     this._group.push($el)
     this.current = $el
-    $el.addClass(TableSelection.selectedClass)
+    $el.focus().addClass(TableSelection.selectedClass)
   }
 
   discardAll() {

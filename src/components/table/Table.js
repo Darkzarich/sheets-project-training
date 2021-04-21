@@ -6,7 +6,7 @@ import {
   isSelectable,
   shouldResize,
   isSelectingGroup,
-  getSelectDirection,
+  getNextCellCord,
   isControlKey,
 } from './table.functions'
 import TableSelection from './TableSelection'
@@ -53,17 +53,17 @@ export class Table extends SheetsComponent {
   }
 
   onKeydown(event) {
-    if (isSelectable(event) && isControlKey(event)) {
+    if (isControlKey(event) && !event.shiftKey) {
       event.preventDefault()
 
-      const direction = getSelectDirection(event)
-      const currentCord = this.selection.current.id(true)
-      const nextCell = this.$root.find(
-        `[data-id="${currentCord.row + direction[0]}:${
-          currentCord.col + direction[1]
-        }"]`
+      const nextCellCord = getNextCellCord(
+        event,
+        this.selection.current.id(true)
       )
-      nextCell.focus()
+      const nextCell = this.$root.find(
+        `[data-id="${nextCellCord.row}:${nextCellCord.col}"]`
+      )
+
       this.selection.select(nextCell)
     }
   }
