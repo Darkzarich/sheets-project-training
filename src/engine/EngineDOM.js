@@ -65,6 +65,17 @@ class EngineDOM {
     return this
   }
 
+  id(parse) {
+    if (parse) {
+      const id = this.id().split(':')
+      return {
+        row: +id[0],
+        col: +id[1],
+      }
+    }
+    return this.data.id
+  }
+
   addClass(className) {
     return $(this.$el.classList.add(className))
   }
