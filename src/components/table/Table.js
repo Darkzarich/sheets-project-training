@@ -35,7 +35,7 @@ export class Table extends SheetsComponent {
     const $cell = this.$root.find('[data-id="1:1"]')
     this.selection.select($cell)
 
-    this.emitter.on('it-is-working', (text) => {
+    this.$on('formula:input', (text) => {
       this.selection.current.text(text)
     })
   }
