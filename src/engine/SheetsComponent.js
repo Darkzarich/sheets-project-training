@@ -4,6 +4,7 @@ export class SheetsComponent extends DOMEventListener {
   constructor($root, options = {}) {
     super($root, options.listeners)
     this.name = options.name || 'Anonymous'
+    this.emitter = options.emitter
 
     this.prepare()
   }

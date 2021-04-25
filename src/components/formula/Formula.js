@@ -3,10 +3,11 @@ import { SheetsComponent } from '@engine/SheetsComponent'
 export class Formula extends SheetsComponent {
   static className = 'c-sheets-formula'
 
-  constructor($root) {
+  constructor($root, options) {
     super($root, {
       name: 'Formula',
-      listeners: ['input', 'click'],
+      listeners: ['input'],
+      ...options,
     })
   }
 
@@ -21,10 +22,7 @@ export class Formula extends SheetsComponent {
   }
 
   onInput(event) {
-    console.log('Formula: onInput', event)
-  }
-
-  onClick() {
-    console.log('click')
+    const text = event.target.textContent.trim()
+    this.emitter.emit('it-is-working', text)
   }
 }

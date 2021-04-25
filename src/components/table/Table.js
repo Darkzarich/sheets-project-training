@@ -13,10 +13,11 @@ import TableSelection from './TableSelection'
 export class Table extends SheetsComponent {
   static className = 'c-sheets-table'
 
-  constructor($root) {
+  constructor($root, options) {
     super($root, {
       name: 'Table',
       listeners: ['mousedown', 'keydown'],
+      ...options,
     })
   }
 
@@ -33,6 +34,10 @@ export class Table extends SheetsComponent {
 
     const $cell = this.$root.find('[data-id="1:1"]')
     this.selection.select($cell)
+
+    this.emitter.on('it-is-working', (text) => {
+      this.selection.current.text(text)
+    })
   }
 
   onMousedown(event) {

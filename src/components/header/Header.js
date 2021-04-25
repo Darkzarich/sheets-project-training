@@ -3,6 +3,13 @@ import { SheetsComponent } from '@engine/SheetsComponent'
 export class Header extends SheetsComponent {
   static className = 'c-sheets-header'
 
+  constructor($root, options) {
+    super($root, {
+      name: 'Header',
+      ...options,
+    })
+  }
+
   toHTML() {
     return `
       <input type="text" class="c-sheets-header__input" value="New table">

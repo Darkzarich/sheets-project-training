@@ -81,6 +81,10 @@ class EngineDOM {
     return this
   }
 
+  text(text) {
+    this.$el.textContent = text
+  }
+
   addClass(className) {
     return $(this.$el.classList.add(className))
   }
