@@ -3,15 +3,22 @@ const CODES = {
   Z: 90,
 }
 
-const toCell = (content, index) => {
+const toCell = (col, row) => {
   return `
-    <div class="c-sheets-table__cell" contenteditable data-col-index="${index}">${content}</div>
+    <div 
+      class="c-sheets-table__cell" 
+      contenteditable
+      data-col-index="${col + 1}" 
+      data-id="${row + 1}:${col + 1}"
+    ></div>
 `
 }
 
 const toColumn = (letter, index) => {
   return `
-    <div class="c-sheets-table__col" data-resizable data-col-index="${index}">
+    <div class="c-sheets-table__col" data-resizable data-col-index="${
+      index + 1
+    }">
       ${letter}
       <div class="c-sheets-table__col-resize" data-resize="col"></div>
     </div>
@@ -26,7 +33,7 @@ const createRow = (content, rowNumber) => {
   return `
     <div class="c-sheets-table__row" data-resizable>
       <div class="c-sheets-table__row-info">
-        ${rowNumber}
+        ${rowNumber + 1}
         ${resizer}
       </div>
       <div class="c-sheets-table__row-data">${content}</div>
@@ -44,12 +51,15 @@ export const createTable = (rowCount = 27) => {
 
   const cols = new Array(colCount).fill('').map(toChar).map(toColumn).join('')
 
-  const cells = new Array(colCount).fill('').map(toCell).join('')
-
   rows.push(createRow(cols, ''))
 
-  for (let i = 0; i < rowCount; i++) {
-    rows.push(createRow(cells, i + 1))
+  for (let row = 0; row < rowCount; row++) {
+    const cells = new Array(colCount)
+      .fill('')
+      .map((_, col) => toCell(col, row))
+      .join('')
+
+    rows.push(createRow(cells, row))
   }
 
   return rows.join('')

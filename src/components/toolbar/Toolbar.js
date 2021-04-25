@@ -3,10 +3,11 @@ import { SheetsComponent } from '@engine/SheetsComponent'
 export class Toolbar extends SheetsComponent {
   static className = 'c-sheets-toolbar'
 
-  constructor($root) {
+  constructor($root, options) {
     super($root, {
       name: 'Toolbar',
       listeners: ['click'],
+      ...options,
     })
   }
 

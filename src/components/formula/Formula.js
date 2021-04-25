@@ -3,10 +3,11 @@ import { SheetsComponent } from '@engine/SheetsComponent'
 export class Formula extends SheetsComponent {
   static className = 'c-sheets-formula'
 
-  constructor($root) {
+  constructor($root, options) {
     super($root, {
       name: 'Formula',
-      listeners: ['input', 'click'],
+      listeners: ['input', 'keydown'],
+      ...options,
     })
   }
 
@@ -15,16 +16,33 @@ export class Formula extends SheetsComponent {
     <div class="c-sheets-formula__info">
       fx
     </div>
-    <div class="c-sheets-formula__input" contenteditable spellcheck="false">
+      <div class="c-sheets-formula__input" data-formula contenteditable spellcheck="false">
     </div>
     `
   }
 
-  onInput(event) {
-    console.log('Formula: onInput', event)
+  init() {
+    super.init()
+
+    this.$formula = this.$root.find('[data-formula]')
+
+    this.$on('table:select', ($cell) => {
+      this.$formula.text($cell.text())
+    })
+
+    this.$on('table:input', (text) => {
+      this.$formula.text(text)
+    })
   }
 
-  onClick() {
-    console.log('click')
+  onInput() {
+    this.$emit('formula:input', this.$formula.text())
+  }
+
+  onKeydown(event) {
+    if (event.key === 'Enter' || event.key === 'Tab') {
+      event.preventDefault()
+      this.$emit('formula:done')
+    }
   }
 }
