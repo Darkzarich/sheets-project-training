@@ -16,7 +16,7 @@ export class Table extends SheetsComponent {
   constructor($root, options) {
     super($root, {
       name: 'Table',
-      listeners: ['mousedown', 'keydown', 'keyup'],
+      listeners: ['mousedown', 'keydown', 'input'],
       ...options,
     })
   }
@@ -33,16 +33,20 @@ export class Table extends SheetsComponent {
     super.init()
 
     const $cell = this.$root.find('[data-id="1:1"]')
-    this.selection.select($cell)
+    this.selectCell($cell)
 
     this.$on('formula:input', (text) => {
-      console.log('formula input: ', text)
       this.selection.current.text(text)
     })
 
-    this.$on('formula:focus', () => {
+    this.$on('formula:done', () => {
       this.selection.current.focus()
     })
+  }
+
+  selectCell($cell) {
+    this.selection.select($cell)
+    this.$emit('table:select', $cell)
   }
 
   onMousedown(event) {
@@ -60,7 +64,7 @@ export class Table extends SheetsComponent {
         this.selection.select(target)
       }
 
-      this.$emit('table:select', this.selection.current.text())
+      this.$emit('table:select', target)
     }
   }
 
@@ -72,19 +76,15 @@ export class Table extends SheetsComponent {
         event,
         this.selection.current.id(true)
       )
-      const nextCell = this.$root.find(
+      const $nextCell = this.$root.find(
         `[data-id="${nextCellCord.row}:${nextCellCord.col}"]`
       )
 
-      this.selection.select(nextCell)
-
-      this.$emit('table:select', this.selection.current.text())
+      this.selectCell($nextCell)
     }
   }
 
-  onKeyup(event) {
-    if (!isControlKey(event) && !event.shiftKey) {
-      this.$emit('table:input', this.selection.current.text())
-    }
+  onInput() {
+    this.$emit('table:input', this.selection.current.text())
   }
 }

@@ -26,8 +26,8 @@ export class Formula extends SheetsComponent {
 
     this.$formula = this.$root.find('[data-formula]')
 
-    this.$on('table:select', (text) => {
-      this.$formula.text(text)
+    this.$on('table:select', ($cell) => {
+      this.$formula.text($cell.text())
     })
 
     this.$on('table:input', (text) => {
@@ -35,16 +35,14 @@ export class Formula extends SheetsComponent {
     })
   }
 
-  onInput(event) {
-    console.log(event)
-    const text = event.target.textContent.trim()
-    this.$emit('formula:input', text)
+  onInput() {
+    this.$emit('formula:input', this.$formula.text())
   }
 
   onKeydown(event) {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' || event.key === 'Tab') {
       event.preventDefault()
-      this.$emit('formula:focus')
+      this.$emit('formula:done')
     }
   }
 }
