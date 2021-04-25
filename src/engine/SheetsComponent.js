@@ -20,7 +20,7 @@ export class SheetsComponent extends DOMEventListener {
 
   // Emit an event
   $emit(event, ...args) {
-    this.emitter.emit(event, args)
+    this.emitter.emit(event, ...args)
   }
 
   // Listen to an event from emit, calling callback when detected matching event

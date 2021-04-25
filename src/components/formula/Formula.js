@@ -6,7 +6,7 @@ export class Formula extends SheetsComponent {
   constructor($root, options) {
     super($root, {
       name: 'Formula',
-      listeners: ['input'],
+      listeners: ['input', 'keydown'],
       ...options,
     })
   }
@@ -16,13 +16,35 @@ export class Formula extends SheetsComponent {
     <div class="c-sheets-formula__info">
       fx
     </div>
-    <div class="c-sheets-formula__input" contenteditable spellcheck="false">
+      <div class="c-sheets-formula__input" data-formula contenteditable spellcheck="false">
     </div>
     `
   }
 
+  init() {
+    super.init()
+
+    this.$formula = this.$root.find('[data-formula]')
+
+    this.$on('table:select', (text) => {
+      this.$formula.text(text)
+    })
+
+    this.$on('table:input', (text) => {
+      this.$formula.text(text)
+    })
+  }
+
   onInput(event) {
+    console.log(event)
     const text = event.target.textContent.trim()
     this.$emit('formula:input', text)
+  }
+
+  onKeydown(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      this.$emit('formula:focus')
+    }
   }
 }

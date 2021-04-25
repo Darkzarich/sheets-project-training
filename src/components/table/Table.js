@@ -16,7 +16,7 @@ export class Table extends SheetsComponent {
   constructor($root, options) {
     super($root, {
       name: 'Table',
-      listeners: ['mousedown', 'keydown'],
+      listeners: ['mousedown', 'keydown', 'keyup'],
       ...options,
     })
   }
@@ -36,7 +36,12 @@ export class Table extends SheetsComponent {
     this.selection.select($cell)
 
     this.$on('formula:input', (text) => {
+      console.log('formula input: ', text)
       this.selection.current.text(text)
+    })
+
+    this.$on('formula:focus', () => {
+      this.selection.current.focus()
     })
   }
 
@@ -54,6 +59,8 @@ export class Table extends SheetsComponent {
       } else {
         this.selection.select(target)
       }
+
+      this.$emit('table:select', this.selection.current.text())
     }
   }
 
@@ -70,6 +77,14 @@ export class Table extends SheetsComponent {
       )
 
       this.selection.select(nextCell)
+
+      this.$emit('table:select', this.selection.current.text())
+    }
+  }
+
+  onKeyup(event) {
+    if (!isControlKey(event) && !event.shiftKey) {
+      this.$emit('table:input', this.selection.current.text())
     }
   }
 }
