@@ -28,6 +28,10 @@ export class SheetsComponent extends DOMEventListener {
     this.storeSub = this.store.subscribe(fn)
   }
 
+  get $store() {
+    return this.store.getState()
+  }
+
   // Emit an event
   $emit(event, ...args) {
     this.emitter.emit(event, ...args)

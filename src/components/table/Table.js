@@ -10,6 +10,7 @@ import {
   isControlKey,
 } from './table.functions'
 import TableSelection from './TableSelection'
+import * as actions from '@/store/actions'
 export class Table extends SheetsComponent {
   static className = 'c-sheets-table'
 
@@ -22,7 +23,7 @@ export class Table extends SheetsComponent {
   }
 
   toHTML() {
-    return createTable()
+    return createTable(27, this.$store)
   }
 
   prepare() {
@@ -49,9 +50,18 @@ export class Table extends SheetsComponent {
     this.$emit('table:select', $cell)
   }
 
+  async resizeTable(event) {
+    try {
+      const payload = await handleTableResize(event, this.$root)
+      this.$dispatch(actions.tableResize(payload))
+    } catch (e) {
+      console.error('Resize error', e)
+    }
+  }
+
   onMousedown(event) {
     if (shouldResize(event)) {
-      handleTableResize(event, this.$root)
+      this.resizeTable(event)
       return
     }
 
