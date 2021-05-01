@@ -38,6 +38,7 @@ export class Table extends SheetsComponent {
 
     this.$on('formula:input', (text) => {
       this.selection.current.text(text)
+      this.updateTextInStore(text)
     })
 
     this.$on('formula:done', () => {
@@ -94,7 +95,16 @@ export class Table extends SheetsComponent {
     }
   }
 
+  updateTextInStore(text) {
+    this.$dispatch(
+      actions.changeText({
+        text,
+        id: this.selection.current.id(),
+      })
+    )
+  }
+
   onInput() {
-    this.$emit('table:input', this.selection.current.text())
+    this.updateTextInStore(this.selection.current.text())
   }
 }

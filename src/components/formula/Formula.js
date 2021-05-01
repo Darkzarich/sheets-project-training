@@ -30,8 +30,8 @@ export class Formula extends SheetsComponent {
       this.$formula.text($cell.text())
     })
 
-    this.$on('table:input', (text) => {
-      this.$formula.text(text)
+    this.$subscribe((state) => {
+      this.$formula.text(state.currentText)
     })
   }
 

@@ -1,6 +1,8 @@
 const _initialState = {
   colState: {},
   rowState: {},
+  dataState: {},
+  currentText: '',
 }
 
 export function createStore(rootReducer, initialState = _initialState) {

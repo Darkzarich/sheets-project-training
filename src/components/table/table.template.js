@@ -7,19 +7,22 @@ const CODES = {
 export function createTable(rowCount = 20, store = {}) {
   const toCell = (col, row) => {
     const colIndex = col + 1
+    const id = `${row + 1}:${col + 1}`
 
     const styleString = toCSS({
       width: store.colState[colIndex] || '',
     })
+
+    const cellData = store.dataState[id]
 
     return `
       <div 
         class="c-sheets-table__cell" 
         contenteditable
         data-col-index="${colIndex}" 
-        data-id="${row + 1}:${col + 1}"
+        data-id="${id}"
         style="${styleString}"
-      ></div>
+      >${cellData || ''}</div>
   `
   }
 
