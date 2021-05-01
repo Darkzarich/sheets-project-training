@@ -14,3 +14,14 @@ export const swapPropsIfLess = (obj1, obj2, prop) => {
     obj2[prop] = temp
   }
 }
+
+export const storage = (key, data = null) => {
+  if (!data) {
+    return JSON.parse(localStorage.getItem(key))
+  }
+  localStorage.setItem(key, JSON.stringify(data))
+}
+
+export const toCSS = (styleObj = {}) => {
+  return Object.keys(styleObj).map((key) => `${key}: ${styleObj[key]};`)
+}
