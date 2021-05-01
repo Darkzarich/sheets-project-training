@@ -33,7 +33,7 @@ export class Table extends SheetsComponent {
   init() {
     super.init()
 
-    const $cell = this.$root.find('[data-id="1:1"]')
+    const $cell = this.$root.find('[data-id="0:0"]')
     this.selectCell($cell)
 
     this.$on('formula:input', (text) => {

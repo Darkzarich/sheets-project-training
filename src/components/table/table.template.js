@@ -5,9 +5,8 @@ const CODES = {
   Z: 90,
 }
 export function createTable(rowCount = 20, store = {}) {
-  const toCell = (col, row) => {
-    const colIndex = col + 1
-    const id = `${row + 1}:${col + 1}`
+  const toCell = (colIndex, rowIndex) => {
+    const id = `${rowIndex}:${colIndex}`
 
     const styleString = toCSS({
       width: store.colState[colIndex] || '',
@@ -26,9 +25,7 @@ export function createTable(rowCount = 20, store = {}) {
   `
   }
 
-  const toColumn = (letter, index) => {
-    const colIndex = index + 1
-
+  const toColumn = (letter, colIndex) => {
     const styleString = toCSS({
       width: store.colState[colIndex] || '',
     })
@@ -42,11 +39,12 @@ export function createTable(rowCount = 20, store = {}) {
   }
 
   const createRow = (content, row) => {
-    const rowNumber = row !== '' ? row + 1 : ''
+    const rowNumber = null || row
 
-    const resizer = rowNumber
-      ? '<div class="c-sheets-table__row-resize" data-resize="row"></div>'
-      : ''
+    const resizer =
+      rowNumber !== null
+        ? '<div class="c-sheets-table__row-resize" data-resize="row"></div>'
+        : ''
 
     const styleString = toCSS({
       height: store.rowState[rowNumber] || '',
@@ -55,7 +53,7 @@ export function createTable(rowCount = 20, store = {}) {
     return `
       <div class="c-sheets-table__row" data-resizable style="${styleString}" data-row-index="${rowNumber}">
         <div class="c-sheets-table__row-info">
-          ${rowNumber}
+          ${row !== null ? rowNumber + 1 : ''}
           ${resizer}
         </div>
         <div class="c-sheets-table__row-data">${content}</div>
@@ -72,7 +70,7 @@ export function createTable(rowCount = 20, store = {}) {
 
   const cols = new Array(colCount).fill('').map(toChar).map(toColumn).join('')
 
-  rows.push(createRow(cols, ''))
+  rows.push(createRow(cols, null))
 
   for (let row = 0; row < rowCount; row++) {
     const cells = new Array(colCount)
