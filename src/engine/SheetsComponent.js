@@ -5,7 +5,9 @@ export class SheetsComponent extends DOMEventListener {
     super($root, options.listeners)
     this.name = options.name || 'Anonymous'
     this.emitter = options.emitter
+    this.store = options.store
     this.unsubs = []
+    this.storeSub = null
 
     this.prepare()
   }
@@ -16,6 +18,14 @@ export class SheetsComponent extends DOMEventListener {
    */
   toHTML() {
     return ''
+  }
+
+  $dispatch(action) {
+    this.store.dispatch(action)
+  }
+
+  $subscribe(fn) {
+    this.storeSub = this.store.subscribe(fn)
   }
 
   // Emit an event
@@ -41,5 +51,6 @@ export class SheetsComponent extends DOMEventListener {
   destroy() {
     this.removeDOMEventListeners()
     this.unsubs.forEach((u) => u())
+    this.storeSub.unsubscribe()
   }
 }
