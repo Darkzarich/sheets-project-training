@@ -38,15 +38,21 @@ export function createTable(rowCount = 20, store = {}) {
   `
   }
 
-  const createRow = (content, rowNumber) => {
+  const createRow = (content, row) => {
+    const rowNumber = row !== '' ? row + 1 : ''
+
     const resizer = rowNumber
       ? '<div class="c-sheets-table__row-resize" data-resize="row"></div>'
       : ''
 
+    const styleString = toCSS({
+      height: store.rowState[rowNumber] || '',
+    })
+
     return `
-      <div class="c-sheets-table__row" data-resizable>
+      <div class="c-sheets-table__row" data-resizable style="${styleString}" data-row-index="${rowNumber}">
         <div class="c-sheets-table__row-info">
-          ${rowNumber + 1}
+          ${rowNumber}
           ${resizer}
         </div>
         <div class="c-sheets-table__row-data">${content}</div>

@@ -23,5 +23,7 @@ export const storage = (key, data = null) => {
 }
 
 export const toCSS = (styleObj = {}) => {
-  return Object.keys(styleObj).map((key) => `${key}: ${styleObj[key]};`)
+  return Object.keys(styleObj).map((key) =>
+    styleObj[key] ? `${key}: ${styleObj[key]};` : ''
+  )
 }

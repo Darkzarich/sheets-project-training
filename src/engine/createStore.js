@@ -1,5 +1,13 @@
-export function createStore(rootReducer, initialState = {}) {
-  let state = rootReducer({ ...initialState }, { type: '__INIT__' })
+const _initialState = {
+  colState: {},
+  rowState: {},
+}
+
+export function createStore(rootReducer, initialState = _initialState) {
+  let state = rootReducer(
+    { ...(initialState ? initialState : _initialState) },
+    { type: '__INIT__' }
+  )
   let listeners = []
 
   return {

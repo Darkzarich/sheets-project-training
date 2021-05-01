@@ -63,7 +63,8 @@ export const handleTableResize = (event, $root) => {
 
         resolve({
           value,
-          id: resizeType === 'col' ? $parent.data.colIndex : null,
+          id: $parent.data[resizeType === 'col' ? 'colIndex' : 'rowIndex'],
+          type: resizeType,
         })
 
         $resizer.css({
