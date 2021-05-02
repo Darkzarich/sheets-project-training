@@ -30,6 +30,13 @@ class EngineDOM {
     return this.$el.style
   }
 
+  getStyles(styles = []) {
+    return styles.reduce((res, s) => {
+      res[s] = this.$el.style[s]
+      return res
+    }, {})
+  }
+
   on(eventType, callback) {
     this.$el.addEventListener(eventType, callback)
   }

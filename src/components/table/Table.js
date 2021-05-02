@@ -11,6 +11,7 @@ import {
 } from './table.functions'
 import TableSelection from './TableSelection'
 import * as actions from '@/store/actions'
+import { defaultCellStyles } from '@/constants'
 export class Table extends SheetsComponent {
   static className = 'c-sheets-table'
 
@@ -44,11 +45,17 @@ export class Table extends SheetsComponent {
     this.$on('formula:done', () => {
       this.selection.current.focus()
     })
+
+    this.$on('toolbar:apply-style', (style) => {
+      this.selection.applyStyle(style)
+    })
   }
 
   selectCell($cell) {
     this.selection.select($cell)
     this.$emit('table:select', $cell)
+
+    console.log($cell.getStyles(Object.keys(defaultCellStyles)))
   }
 
   async resizeTable(event) {
@@ -71,11 +78,10 @@ export class Table extends SheetsComponent {
 
       if (isSelectingGroup(event)) {
         this.selection.selectGroup(target, this.$root)
+        this.$emit('table:select', target)
       } else {
-        this.selection.select(target)
+        this.selectCell(target)
       }
-
-      this.$emit('table:select', target)
     }
   }
 

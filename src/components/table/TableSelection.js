@@ -41,4 +41,8 @@ export default class TableSelection {
       }
     }
   }
+
+  applyStyle(style) {
+    this._group.forEach(($el) => $el.css(style))
+  }
 }

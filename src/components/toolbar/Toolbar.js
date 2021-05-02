@@ -1,6 +1,9 @@
-import { SheetsComponent } from '@engine/SheetsComponent'
+import { SheetsStateComponent } from '@engine/SheetsStateComponent'
+import { createToolbar } from './toolbar.template'
+import { $ } from '@engine/EngineDOM'
+import { defaultCellStyles } from '@/constants'
 
-export class Toolbar extends SheetsComponent {
+export class Toolbar extends SheetsStateComponent {
   static className = 'c-sheets-toolbar'
 
   constructor($root, options) {
@@ -11,47 +14,26 @@ export class Toolbar extends SheetsComponent {
     })
   }
 
-  onClick(event) {
-    console.log(event.target)
+  prepare() {
+    const initialState = {
+      ...defaultCellStyles,
+    }
+    this.initState(initialState)
   }
 
-  toHTML() {
-    return `
-    <div class="c-sheets-toolbar__button">
-      <i class="material-icons">
-        format_align_left
-      </i>
-    </div>
-    <div class="c-sheets-toolbar__button">
-      <i class="material-icons">
-        format_align_center
-      </i>
-    </div>
-    <div class="c-sheets-toolbar__button">
-      <i class="material-icons">
-        format_align_right
-      </i>
-    </div>
-    <div class="c-sheets-toolbar__button">
-      <i class="material-icons">
-        format_bold
-      </i>
-    </div>
-    <div class="c-sheets-toolbar__button">
-      <i class="material-icons">
-        format_italic
-      </i>
-    </div>
-    <div class="c-sheets-toolbar__button">
-      <i class="material-icons">
-        format_underlined
-      </i>
-    </div>
-    <div class="c-sheets-toolbar__button">
-      <i class="material-icons">
-        strikethrough_s
-      </i>
-    </div>
-    `
+  get template() {
+    return createToolbar(this.state)
+  }
+
+  onClick(event) {
+    const $target = $(event.target)
+    if ($target.data.type === 'button') {
+      const value = JSON.parse($target.data.value)
+      const key = Object.keys(value)[0]
+
+      this.$emit('toolbar:apply-style', value)
+
+      this.setState({ [key]: value[key] })
+    }
   }
 }
