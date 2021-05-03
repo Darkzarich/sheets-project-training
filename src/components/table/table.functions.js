@@ -31,7 +31,7 @@ export const isControlKey = (event) => {
 }
 
 export const getNextCellCord = (event, { row, col }) => {
-  const MIN_VALUE = 1
+  const MIN_VALUE = 0
   switch (event.key) {
     case 'Tab':
     case 'ArrowRight':

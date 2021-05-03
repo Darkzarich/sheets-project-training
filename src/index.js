@@ -9,8 +9,9 @@ import { Formula } from '@/components/formula/Formula'
 import { Table } from '@/components/table/Table'
 import { createStore } from '@engine/createStore'
 import { rootReducer } from './store/rootReducer'
+import { initialState } from './store/initialState'
 
-const store = createStore(rootReducer, storage('sheets-state'))
+const store = createStore(rootReducer, initialState)
 
 // middleware
 store.subscribe((state) => {

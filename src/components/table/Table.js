@@ -48,6 +48,12 @@ export class Table extends SheetsComponent {
 
     this.$on('toolbar:apply-style', (style) => {
       this.selection.applyStyle(style)
+      this.$dispatch(
+        actions.applyStyle({
+          style,
+          ids: this.selection.selectedIds,
+        })
+      )
     })
   }
 
@@ -55,7 +61,8 @@ export class Table extends SheetsComponent {
     this.selection.select($cell)
     this.$emit('table:select', $cell)
 
-    console.log($cell.getStyles(Object.keys(defaultCellStyles)))
+    const styles = $cell.getStyles(Object.keys(defaultCellStyles))
+    this.$dispatch(actions.changeStyles(styles))
   }
 
   async resizeTable(event) {

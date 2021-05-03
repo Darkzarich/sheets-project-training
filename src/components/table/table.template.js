@@ -1,3 +1,4 @@
+import { defaultCellStyles } from '@/constants'
 import { toCSS } from '@engine/utils'
 
 const CODES = {
@@ -10,6 +11,8 @@ export function createTable(rowCount = 20, store = {}) {
 
     const styleString = toCSS({
       width: store.colState[colIndex] || '',
+      ...defaultCellStyles,
+      ...store.stylesState[id],
     })
 
     const cellData = store.dataState[id]

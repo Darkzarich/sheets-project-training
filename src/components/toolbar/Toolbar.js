@@ -10,6 +10,7 @@ export class Toolbar extends SheetsStateComponent {
     super($root, {
       name: 'Toolbar',
       listeners: ['click'],
+      subscribe: ['currentStyles'],
       ...options,
     })
   }
@@ -19,6 +20,10 @@ export class Toolbar extends SheetsStateComponent {
       ...defaultCellStyles,
     }
     this.initState(initialState)
+  }
+
+  storeChanged({ currentStyles }) {
+    this.setState(currentStyles)
   }
 
   get template() {
