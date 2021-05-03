@@ -24,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/Darkzarich/sheets-project-training/issues"
   },
-  "homepage": "",
+  "homepage": "https://github.com/Darkzarich/sheets-project-training#readme",
   "private": true,
   "browserslist": "> 0.25%, not dead",
   "devDependencies": {
