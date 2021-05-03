@@ -28,7 +28,7 @@ export class Formula extends SheetsComponent {
     this.$formula = this.$root.find('[data-formula]')
 
     this.$on('table:select', ($cell) => {
-      this.$formula.text($cell.data.formula)
+      this.$formula.text($cell.data.formula || $cell.text())
     })
   }
 
