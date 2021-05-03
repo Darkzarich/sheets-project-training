@@ -1,6 +1,6 @@
 import './scss/index.scss'
 
-import { storage } from '@engine/utils'
+import { storage, debounce } from '@engine/utils'
 
 import { Sheets } from '@/components/sheets/Sheets'
 import { Header } from '@/components/header/Header'
@@ -13,11 +13,12 @@ import { initialState } from './store/initialState'
 
 const store = createStore(rootReducer, initialState)
 
-// middleware
-store.subscribe((state) => {
+const stateToStoreMiddleware = debounce((state) => {
   console.log('App State: ', state)
   storage('sheets-state', state)
-})
+}, 300)
+
+store.subscribe(stateToStoreMiddleware)
 
 const sheets = new Sheets('#app', {
   components: [Header, Toolbar, Formula, Table],

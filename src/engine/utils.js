@@ -72,3 +72,24 @@ export const isEqual = (a, b) => {
   }
   return a === b
 }
+
+/**
+ * Creates a function that is called
+ * when [wait] time passed from the last call
+ * ignoring all earlier than that period calls
+ * @param {function} fn function being wrapped
+ * @param {number} wait ms to wait
+ * @return {function}
+ */
+export function debounce(fn, wait) {
+  let timeout
+  return function (...args) {
+    const later = () => {
+      clearTimeout(timeout)
+      // eslint-disable-next-line no-invalid-this
+      fn.apply(this, args)
+    }
+    clearTimeout(timeout)
+    timeout = setTimeout(later, wait)
+  }
+}

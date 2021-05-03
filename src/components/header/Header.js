@@ -1,6 +1,7 @@
 import { SheetsComponent } from '@engine/SheetsComponent'
 import { $ } from '@engine/EngineDOM'
 import * as actions from '@/store/actions'
+import { debounce } from '@engine/utils'
 
 export class Header extends SheetsComponent {
   static className = 'c-sheets-header'
@@ -11,6 +12,10 @@ export class Header extends SheetsComponent {
       listeners: ['input'],
       ...options,
     })
+  }
+
+  prepare() {
+    this.onInput = debounce(this.onInput, 300)
   }
 
   onInput(event) {
