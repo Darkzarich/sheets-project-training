@@ -1,4 +1,10 @@
-import { CHANGE_TEXT, CHANGE_STYLES, TABLE_RESIZE, APPLY_STYLE } from './types'
+import {
+  CHANGE_TEXT,
+  CHANGE_STYLES,
+  TABLE_RESIZE,
+  APPLY_STYLE,
+  CHANGE_TITLE,
+} from './types'
 
 export function rootReducer(state, action) {
   console.log('Action: ', action)
@@ -30,6 +36,12 @@ export function rootReducer(state, action) {
         ...state,
         stylesState: val,
         currentStyles: { ...state.currentStyles, ...action.payload.style },
+      }
+    }
+    case CHANGE_TITLE: {
+      return {
+        ...state,
+        title: action.payload,
       }
     }
     default:

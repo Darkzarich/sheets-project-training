@@ -4,3 +4,5 @@ export const defaultCellStyles = {
   textDecoration: 'none',
   fontStyle: 'normal',
 }
+
+export const defaultTitle = 'New sheet'

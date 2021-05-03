@@ -1,7 +1,8 @@
-import { defaultCellStyles } from '@/constants'
+import { defaultCellStyles, defaultTitle } from '@/constants'
 import { storage } from '@/engine/utils'
 
 const defaultState = {
+  title: defaultTitle,
   colState: {},
   rowState: {},
   dataState: {},
