@@ -89,7 +89,7 @@ class EngineDOM {
   }
 
   text(text) {
-    if (typeof text === 'string') {
+    if (text) {
       this.$el.textContent = text
       return this
     }
@@ -97,6 +97,14 @@ class EngineDOM {
       return this.$el.value.trim()
     }
     return this.$el.textContent.trim()
+  }
+
+  attr(name, value) {
+    if (value) {
+      this.$el.setAttribute(name, value)
+      return this
+    }
+    return this.$el.getAttribute(name)
   }
 
   addClass(className) {

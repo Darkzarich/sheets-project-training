@@ -12,6 +12,8 @@ import {
 import TableSelection from './TableSelection'
 import * as actions from '@/store/actions'
 import { defaultCellStyles } from '@/constants'
+import { parse } from './table.parser'
+
 export class Table extends SheetsComponent {
   static className = 'c-sheets-table'
 
@@ -37,9 +39,9 @@ export class Table extends SheetsComponent {
     const $cell = this.$root.find('[data-id="0:0"]')
     this.selectCell($cell)
 
-    this.$on('formula:input', (text) => {
-      this.selection.current.text(text)
-      this.updateTextInStore(text)
+    this.$on('formula:input', (value) => {
+      this.selection.current.attr('data-formula', value).text(parse(value))
+      this.updateTextInStore(value)
     })
 
     this.$on('formula:done', () => {

@@ -1,5 +1,6 @@
 import { defaultCellStyles } from '@/constants'
 import { toCSS } from '@engine/utils'
+import { parse } from './table.parser'
 
 const CODES = {
   A: 65,
@@ -23,8 +24,9 @@ export function createTable(rowCount = 20, store = {}) {
         contenteditable
         data-col-index="${colIndex}" 
         data-id="${id}"
+        data-formula="${cellData || ''}"
         style="${styleString}"
-      >${cellData || ''}</div>
+      >${parse(cellData) || ''}</div>
   `
   }
 
