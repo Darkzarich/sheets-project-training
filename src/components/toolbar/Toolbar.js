@@ -34,11 +34,7 @@ export class Toolbar extends SheetsStateComponent {
     const $target = $(event.target)
     if ($target.data.type === 'button') {
       const value = JSON.parse($target.data.value)
-      const key = Object.keys(value)[0]
-
       this.$emit('toolbar:apply-style', value)
-
-      this.setState({ [key]: value[key] })
     }
   }
 }
