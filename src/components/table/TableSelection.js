@@ -8,6 +8,10 @@ export default class TableSelection {
     this.current = null
   }
 
+  get selectedIds() {
+    return this._group.map(($el) => $el.id())
+  }
+
   select($el) {
     this.discardAll()
     this._group.push($el)
@@ -40,5 +44,9 @@ export default class TableSelection {
         }
       }
     }
+  }
+
+  applyStyle(style) {
+    this._group.forEach(($el) => $el.css(style))
   }
 }

@@ -10,6 +10,10 @@ import {
   isControlKey,
 } from './table.functions'
 import TableSelection from './TableSelection'
+import * as actions from '@/store/actions'
+import { defaultCellStyles } from '@/constants'
+import { parse } from './table.parser'
+
 export class Table extends SheetsComponent {
   static className = 'c-sheets-table'
 
@@ -22,7 +26,7 @@ export class Table extends SheetsComponent {
   }
 
   toHTML() {
-    return createTable()
+    return createTable(27, this.$store)
   }
 
   prepare() {
@@ -32,26 +36,49 @@ export class Table extends SheetsComponent {
   init() {
     super.init()
 
-    const $cell = this.$root.find('[data-id="1:1"]')
+    const $cell = this.$root.find('[data-id="0:0"]')
     this.selectCell($cell)
 
-    this.$on('formula:input', (text) => {
-      this.selection.current.text(text)
+    this.$on('formula:input', (value) => {
+      this.selection.current.attr('data-formula', value).text(parse(value))
+      this.updateTextInStore(value)
     })
 
     this.$on('formula:done', () => {
       this.selection.current.focus()
+    })
+
+    this.$on('toolbar:apply-style', (style) => {
+      this.selection.applyStyle(style)
+      this.$dispatch(
+        actions.applyStyle({
+          style,
+          ids: this.selection.selectedIds,
+        })
+      )
     })
   }
 
   selectCell($cell) {
     this.selection.select($cell)
     this.$emit('table:select', $cell)
+
+    const styles = $cell.getStyles(Object.keys(defaultCellStyles))
+    this.$dispatch(actions.changeStyles(styles))
+  }
+
+  async resizeTable(event) {
+    try {
+      const payload = await handleTableResize(event, this.$root)
+      this.$dispatch(actions.tableResize(payload))
+    } catch (e) {
+      console.error('Resize error', e)
+    }
   }
 
   onMousedown(event) {
     if (shouldResize(event)) {
-      handleTableResize(event, this.$root)
+      this.resizeTable(event)
       return
     }
 
@@ -60,11 +87,10 @@ export class Table extends SheetsComponent {
 
       if (isSelectingGroup(event)) {
         this.selection.selectGroup(target, this.$root)
+        this.$emit('table:select', target)
       } else {
-        this.selection.select(target)
+        this.selectCell(target)
       }
-
-      this.$emit('table:select', target)
     }
   }
 
@@ -84,7 +110,16 @@ export class Table extends SheetsComponent {
     }
   }
 
+  updateTextInStore(text) {
+    this.$dispatch(
+      actions.changeText({
+        text,
+        id: this.selection.current.id(),
+      })
+    )
+  }
+
   onInput() {
-    this.$emit('table:input', this.selection.current.text())
+    this.updateTextInStore(this.selection.current.text())
   }
 }

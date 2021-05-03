@@ -7,6 +7,7 @@ export class Formula extends SheetsComponent {
     super($root, {
       name: 'Formula',
       listeners: ['input', 'keydown'],
+      subscribe: ['currentText'],
       ...options,
     })
   }
@@ -27,12 +28,12 @@ export class Formula extends SheetsComponent {
     this.$formula = this.$root.find('[data-formula]')
 
     this.$on('table:select', ($cell) => {
-      this.$formula.text($cell.text())
+      this.$formula.text($cell.data.formula || $cell.text())
     })
+  }
 
-    this.$on('table:input', (text) => {
-      this.$formula.text(text)
-    })
+  storeChanged({ currentText }) {
+    this.$formula.text(currentText)
   }
 
   onInput() {
