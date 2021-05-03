@@ -23,9 +23,15 @@ export const storage = (key, data = null) => {
 }
 
 export const toCSS = (styleObj = {}) => {
-  return Object.keys(styleObj).map((key) =>
-    styleObj[key] ? `${key}: ${styleObj[key]};` : ''
-  )
+  return Object.keys(styleObj)
+    .map((key) =>
+      styleObj[key] ? `${fromCamelToKebab(key)}: ${styleObj[key]};` : ''
+    )
+    .join('')
+}
+
+export const fromCamelToKebab = (str) => {
+  return str.replace(/[A-Z]/g, (m) => '-' + m.toLowerCase())
 }
 
 export const isEqual = (a, b) => {
