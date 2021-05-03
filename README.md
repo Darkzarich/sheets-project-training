@@ -3,7 +3,7 @@
 [Show me what it looks like!](https://gifted-galileo-6ef79d.netlify.app/)
 
 **Vanilla JavaScript** project, something similar to Google Sheets.
-With this project I decided to try to stay away from any libraries, frameworks, any other utils (excluding build instruments such as WebPack) and make something using only **Vanilla JavaScript**.
+With this project I decided to try to stay away from any libraries, frameworks, any other utils (excluding build instruments such as Webpack) and make something using only **Vanilla JavaScript**.
 
 On top of app functionality and features I made a simple framework and built this app applying some rules I defined for my framework 
 
