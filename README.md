@@ -12,7 +12,7 @@ Framework features include:
 - Component approach
 - Component HTML render
 - Components-state allowing rerenders on changes
-- `Emitter`class releasing Observer pattern to allow connection between Components
+- `Emitter`class implementing Observer pattern to allow connection between Components
 - `Redux`-like store and a way to react to changes from components, also has a middleware to save changes to `localStorage`
 - `EngineDOM` class which simplifies many DOM operations, inspired a lot by `JQuery.js`, uses method chaining as well
 
