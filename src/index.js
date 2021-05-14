@@ -29,6 +29,4 @@ import Router from '@engine/router/Router'
 
 // sheets.render()
 
-new Router('#app', {
-
-})
+new Router('#app', {})
