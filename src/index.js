@@ -1,28 +1,34 @@
 import './scss/index.scss'
 
-import { storage, debounce } from '@engine/utils'
+import Router from '@engine/router/Router'
 
-import { Sheets } from '@/components/sheets/Sheets'
-import { Header } from '@/components/header/Header'
-import { Toolbar } from '@/components/toolbar/Toolbar'
-import { Formula } from '@/components/formula/Formula'
-import { Table } from '@/components/table/Table'
-import { createStore } from '@engine/createStore'
-import { rootReducer } from './store/rootReducer'
-import { initialState } from './store/initialState'
+// import { storage, debounce } from '@engine/utils'
 
-const store = createStore(rootReducer, initialState)
+// import { Sheets } from '@/components/sheets/Sheets'
+// import { Header } from '@/components/header/Header'
+// import { Toolbar } from '@/components/toolbar/Toolbar'
+// import { Formula } from '@/components/formula/Formula'
+// import { Table } from '@/components/table/Table'
+// import { createStore } from '@engine/createStore'
+// import { rootReducer } from './store/rootReducer'
+// import { initialState } from './store/initialState'
 
-const stateToStoreMiddleware = debounce((state) => {
-  console.log('App State: ', state)
-  storage('sheets-state', state)
-}, 300)
+// const store = createStore(rootReducer, initialState)
 
-store.subscribe(stateToStoreMiddleware)
+// const stateToStoreMiddleware = debounce((state) => {
+//   console.log('App State: ', state)
+//   storage('sheets-state', state)
+// }, 300)
 
-const sheets = new Sheets('#app', {
-  components: [Header, Toolbar, Formula, Table],
-  store,
+// store.subscribe(stateToStoreMiddleware)
+
+// const sheets = new Sheets('#app', {
+//   components: [Header, Toolbar, Formula, Table],
+//   store,
+// })
+
+// sheets.render()
+
+new Router('#app', {
+
 })
-
-sheets.render()
