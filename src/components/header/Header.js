@@ -25,14 +25,17 @@ export class Header extends SheetsComponent {
   }
 
   onClick(event) {
-    console.log(event.target)
     const data = $(event.target).data
 
     if (data && data.action) {
       switch (data.action) {
         case 'delete':
-          localStorage.removeItem(`sheets-state:${Route.param}`)
-          Route.push('dashboard')
+          if (
+            window.confirm('Are you really sure you want to delete this sheet?')
+          ) {
+            localStorage.removeItem(`sheets-state:${Route.param}`)
+            Route.push('dashboard')
+          }
           break
         case 'close':
           Route.push('dashboard')
