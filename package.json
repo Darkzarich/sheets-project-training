@@ -7,7 +7,8 @@
     "start": "cross-env NODE_ENV=development webpack serve --open",
     "build": "cross-env NODE_ENV=production webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "npx eslint ./src"
+    "lint": "cross-env FORCE_COLOR=1 node ./node_modules/eslint/bin/eslint.js ./src",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -43,6 +44,7 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-webpack-plugin": "^2.5.3",
     "html-webpack-plugin": "^5.3.1",
+    "husky": "^6.0.0",
     "mini-css-extract-plugin": "^1.4.0",
     "prettier": "2.2.1",
     "sass": "^1.32.8",
