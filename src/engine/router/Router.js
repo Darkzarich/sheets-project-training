@@ -10,6 +10,8 @@ export default class Router {
     this.$placeholder = $(selector)
     this.routes = routes
 
+    this.currentPage = null
+
     this.changePageHandler = this.changePageHandler.bind(this)
 
     this.init()
@@ -20,8 +22,16 @@ export default class Router {
     this.changePageHandler()
   }
 
-  changePageHandler(event) {
-    this.$placeholder.html('123')
+  changePageHandler() {
+    if (this.currentPage) {
+      this.currentPage.destroy()
+    }
+
+    const Page = this.routes[ActiveRoute.path]
+    const PageClass = Page ? Page : this.routes['default']
+    this.currentPage = new PageClass(ActiveRoute.param)
+    this.$placeholder.html(this.currentPage.getRoot().html())
+    this.currentPage.afterRender()
   }
 
   destroy() {

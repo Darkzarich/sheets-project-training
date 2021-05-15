@@ -3,7 +3,9 @@ export default class Page {
     this.params = params
   }
 
-  getRoot() {}
+  getRoot() {
+    throw new Error('Method "getRoot" should be implemented')
+  }
 
   afterRender() {}
 

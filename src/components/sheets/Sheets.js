@@ -3,8 +3,7 @@ import { $ } from '@engine/EngineDOM'
 import StoreSubscriber from '@engine/StoreSubscriber'
 
 export class Sheets {
-  constructor(selector, options) {
-    this.$el = $(selector)
+  constructor(options) {
     this.components = options.components || []
     this.emitter = new Emitter()
     this.store = options.store
@@ -30,11 +29,8 @@ export class Sheets {
     return $root
   }
 
-  render() {
-    this.$el.append(this.getRoot())
-
+  init() {
     this.subscriber.subscribeComponents(this.components)
-
     this.components.forEach((component) => component.init())
   }
 
