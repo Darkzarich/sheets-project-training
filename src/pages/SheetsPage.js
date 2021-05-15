@@ -7,16 +7,17 @@ import { Table } from '@/components/table/Table'
 import { storage, debounce } from '@engine/utils'
 import { createStore } from '@engine/createStore'
 import { rootReducer } from '@/store/rootReducer'
-import { initialState } from '@/store/initialState'
+import { initialStateFromKey } from '@/store/initialState'
 import Page from '@engine/router/Page'
 
 export default class SheetsPage extends Page {
   getRoot() {
-    const store = createStore(rootReducer, initialState)
+    const params = this.params ? this.params : Date.now().toString()
+    const storeKey = `sheets-state:${params}`
+    const store = createStore(rootReducer, initialStateFromKey(storeKey))
 
     const stateToStoreMiddleware = debounce((state) => {
-      console.log('App State: ', state)
-      storage('sheets-state', state)
+      storage(storeKey, state)
     }, 300)
 
     store.subscribe(stateToStoreMiddleware)

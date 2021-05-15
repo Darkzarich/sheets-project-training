@@ -1,6 +1,7 @@
 import { $ } from '@engine/EngineDOM'
 import ActiveRoute from '@engine/router/ActiveRoute'
 
+const PAGE_REGEXP = new RegExp('[a-z]+')
 export default class Router {
   constructor(selector, routes) {
     if (!selector) {
@@ -27,10 +28,12 @@ export default class Router {
       this.currentPage.destroy()
     }
 
-    const Page = this.routes[ActiveRoute.path]
-    const PageClass = Page ? Page : this.routes['default']
-    this.currentPage = new PageClass(ActiveRoute.param)
-    this.$placeholder.html(this.currentPage.getRoot().html())
+    this.$placeholder.clear()
+
+    const currentRoute = ActiveRoute.path.match(PAGE_REGEXP)
+    const Page = this.routes[currentRoute ? currentRoute[0] : 'default']
+    this.currentPage = new Page(ActiveRoute.param)
+    this.$placeholder.append(this.currentPage.getRoot())
     this.currentPage.afterRender()
   }
 

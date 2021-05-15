@@ -18,6 +18,8 @@ const normalize = (state) => ({
   currentText: '',
 })
 
-export const initialState = storage('sheets-state')
-  ? normalize(storage('sheets-state'))
-  : defaultState
+export function initialStateFromKey(key) {
+  return storage(key)
+    ? normalize(storage(key))
+    : JSON.parse(JSON.stringify(defaultState))
+}
