@@ -1,5 +1,5 @@
 import { $ } from '@engine/EngineDOM'
-import ActiveRoute from '@engine/router/ActiveRoute'
+import Route from '@engine/router/Route'
 
 const PAGE_REGEXP = new RegExp('[a-z]+')
 export default class Router {
@@ -30,9 +30,9 @@ export default class Router {
 
     this.$placeholder.clear()
 
-    const currentRoute = ActiveRoute.path.match(PAGE_REGEXP)
+    const currentRoute = Route.path.match(PAGE_REGEXP)
     const Page = this.routes[currentRoute ? currentRoute[0] : 'default']
-    this.currentPage = new Page(ActiveRoute.param)
+    this.currentPage = new Page(Route.param)
     this.$placeholder.append(this.currentPage.getRoot())
     this.currentPage.afterRender()
   }

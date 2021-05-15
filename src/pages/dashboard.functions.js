@@ -2,10 +2,11 @@ import { storage } from '@engine/utils'
 
 export function recordToHTML(recordKey) {
   const record = storage(recordKey)
+  const id = recordKey.split(':')[1]
 
   return `
   <li class="c-dashboard-table__item">
-    <a href="#"> ${record.title} </a>
+    <a href="/#sheets/${id}"> ${record.title} </a>
     <strong> 02.02.2021 </strong>
   </li>
 `
@@ -19,16 +20,14 @@ export function createSheetsList() {
   }
 
   return `
-  
-      <div class="c-dashboard-table__header">
-        <span>Name</span>
-        <span>Last open</span>
-      </div>
+    <div class="c-dashboard-table__header">
+      <span>Name</span>
+      <span>Last open</span>
+    </div>
 
-      <ul class="c-dashboard-table__list">
-        ${recordsToHTML(records)}
-      </ul>
-  
+    <ul class="c-dashboard-table__list">
+      ${recordsToHTML(records)}
+    </ul>
   `
 }
 
