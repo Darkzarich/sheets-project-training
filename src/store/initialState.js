@@ -1,5 +1,5 @@
 import { defaultCellStyles, defaultTitle } from '@/constants'
-import { storage } from '@/engine/utils'
+import { storage, getFormattedDate } from '@/engine/utils'
 
 const defaultState = {
   title: defaultTitle,
@@ -9,6 +9,7 @@ const defaultState = {
   stylesState: {},
   currentText: '',
   currentStyles: defaultCellStyles,
+  openDate: getFormattedDate(),
 }
 
 // clear not needed saved state
@@ -18,6 +19,8 @@ const normalize = (state) => ({
   currentText: '',
 })
 
-export const initialState = storage('sheets-state')
-  ? normalize(storage('sheets-state'))
-  : defaultState
+export function initialStateFromKey(key) {
+  return storage(key)
+    ? normalize(storage(key))
+    : JSON.parse(JSON.stringify(defaultState))
+}

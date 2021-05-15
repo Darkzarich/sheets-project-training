@@ -93,3 +93,19 @@ export function debounce(fn, wait) {
     timeout = setTimeout(later, wait)
   }
 }
+
+/**
+ * Returns the current date formatted to english date
+ * Format: 05/15/2021
+ * @return {string} - en fortatted date
+ */
+export function getFormattedDate() {
+  return new Intl.DateTimeFormat('en', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    minute: '2-digit',
+    hour: '2-digit',
+    second: '2-digit',
+  }).format(new Date())
+}

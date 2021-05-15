@@ -1,10 +1,10 @@
 import Emitter from '@engine/Emitter'
 import { $ } from '@engine/EngineDOM'
 import StoreSubscriber from '@engine/StoreSubscriber'
+import { updateDate } from '@/store/actions'
 
 export class Sheets {
-  constructor(selector, options) {
-    this.$el = $(selector)
+  constructor(options) {
     this.components = options.components || []
     this.emitter = new Emitter()
     this.store = options.store
@@ -30,11 +30,9 @@ export class Sheets {
     return $root
   }
 
-  render() {
-    this.$el.append(this.getRoot())
-
+  init() {
+    this.store.dispatch(updateDate())
     this.subscriber.subscribeComponents(this.components)
-
     this.components.forEach((component) => component.init())
   }
 

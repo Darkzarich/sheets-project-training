@@ -3,14 +3,14 @@ import { isEqual } from './utils'
 export default class StoreSubscriber {
   constructor(store) {
     this.store = store
-    this.sub = null
+    this.unsubscribe = null
     this.prevState = {}
   }
 
   subscribeComponents(components) {
     this.prevState = this.store.getState()
 
-    this.sub = this.store.subscribe((state) => {
+    this.unsubscribe = this.store.subscribe((state) => {
       for (const key of Object.keys(state)) {
         if (!isEqual(this.prevState[key], state[key])) {
           for (const component of components) {
@@ -27,6 +27,6 @@ export default class StoreSubscriber {
   }
 
   unsubscribeFromStore() {
-    this.sub.unsubscribe()
+    this.unsubscribe()
   }
 }
