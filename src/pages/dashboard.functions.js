@@ -7,7 +7,7 @@ export function recordToHTML(recordKey) {
   return `
   <li class="c-dashboard-table__item">
     <a href="/#sheets/${id}"> ${record.title} </a>
-    <strong> 02.02.2021 </strong>
+    <strong> ${record.openDate} </strong>
   </li>
 `
 }

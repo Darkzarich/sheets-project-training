@@ -1,9 +1,11 @@
+import { getFormattedDate } from '@engine/utils'
 import {
   CHANGE_TEXT,
   CHANGE_STYLES,
   TABLE_RESIZE,
   APPLY_STYLE,
   CHANGE_TITLE,
+  UPDATE_DATE,
 } from './types'
 
 export function rootReducer(state, action) {
@@ -42,6 +44,12 @@ export function rootReducer(state, action) {
       return {
         ...state,
         title: action.payload,
+      }
+    }
+    case UPDATE_DATE: {
+      return {
+        ...state,
+        openDate: getFormattedDate(),
       }
     }
     default:

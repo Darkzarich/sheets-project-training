@@ -1,6 +1,7 @@
 import Emitter from '@engine/Emitter'
 import { $ } from '@engine/EngineDOM'
 import StoreSubscriber from '@engine/StoreSubscriber'
+import { updateDate } from '@/store/actions'
 
 export class Sheets {
   constructor(options) {
@@ -30,6 +31,7 @@ export class Sheets {
   }
 
   init() {
+    this.store.dispatch(updateDate())
     this.subscriber.subscribeComponents(this.components)
     this.components.forEach((component) => component.init())
   }

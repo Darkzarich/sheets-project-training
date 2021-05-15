@@ -4,6 +4,7 @@ import {
   TABLE_RESIZE,
   APPLY_STYLE,
   CHANGE_TITLE,
+  UPDATE_DATE,
 } from './types'
 
 // Action creators
@@ -40,5 +41,11 @@ export function changeTitle(payload) {
   return {
     type: CHANGE_TITLE,
     payload,
+  }
+}
+
+export function updateDate(payload) {
+  return {
+    type: UPDATE_DATE,
   }
 }
