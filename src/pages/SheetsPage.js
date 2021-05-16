@@ -5,7 +5,7 @@ import { Formula } from '@/components/formula/Formula'
 import { Table } from '@/components/table/Table'
 
 import { storage, debounce } from '@engine/utils'
-import { createStore } from '@engine/createStore'
+import { createStore } from '@engine/store/createStore'
 import { rootReducer } from '@/store/rootReducer'
 import { initialStateFromKey } from '@/store/initialState'
 import Page from '@engine/router/Page'

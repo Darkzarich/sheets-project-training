@@ -1,4 +1,4 @@
-import { isEqual } from './utils'
+import { isEqual } from '../utils'
 
 export default class StoreSubscriber {
   constructor(store) {

@@ -1,6 +1,6 @@
 import Emitter from '@engine/Emitter'
 import { $ } from '@engine/EngineDOM'
-import StoreSubscriber from '@engine/StoreSubscriber'
+import StoreSubscriber from '@engine/store/StoreSubscriber'
 import { updateDate } from '@/store/actions'
 
 export class Sheets {
