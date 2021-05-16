@@ -1,5 +1,8 @@
-describe('TEST', () => {
-  test('1 should be equal to 1', () => {
-    expect(1).toBe(1)
+import { createStore } from '@engine/store/createStore'
+
+describe('engine/store/createStore', () => {
+  test('should be defined after calling', () => {
+    const store = createStore(() => {}, {})
+    expect(store).toBeDefined()
   })
 })

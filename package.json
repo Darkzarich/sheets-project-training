@@ -6,7 +6,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack serve --open",
     "build": "cross-env NODE_ENV=production webpack --mode production",
-    "test": "jest",
+    "test": "cross-env FORCE_COLOR=1 jest",
     "test:watch": "jest --watch",
     "lint": "cross-env FORCE_COLOR=1 node ./node_modules/eslint/bin/eslint.js ./src",
     "prepare": "husky install"
