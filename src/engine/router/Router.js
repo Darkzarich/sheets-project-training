@@ -8,6 +8,10 @@ export default class Router {
       throw new Error('Selector is not provided in Router')
     }
 
+    if (!routes.default) {
+      throw new Error('"default" route is not provided for Router')
+    }
+
     this.$placeholder = $(selector)
     this.routes = routes
 
