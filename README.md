@@ -19,9 +19,11 @@ Framework features include:
 
 App features include: 
 
-- Sheets auto drawing
+- Sheets auto draw
 - Cell selection, group cell selection (with `Shift` key)
-- Basic formula calculation
+- Basic formula parsing and calculation
 - Toolbar to change text styles inside Cells
 - Rows and columns resizing 
 - Saving any changes between refreshes
+- Multiple sheets
+- Routing
